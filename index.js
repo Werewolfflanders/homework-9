@@ -57,7 +57,7 @@ inquirer
 const colors = {
   green: {
     wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
+    headerBackground: "#CC1C72",
     headerColor: "black",
     photoBorderColor: "black"
   },
@@ -89,7 +89,7 @@ function generateHTML(data, color) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
-        <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Helvetica|serif&display=swap" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <title>GitHub Profile Generator</title>
         <style>
@@ -115,7 +115,7 @@ function generateHTML(data, color) {
            body {
            background-color: white;
            -webkit-print-color-adjust: exact !important;
-           font-family: 'Cabin', sans-serif;
+           font-family: helvetica, sans-serif;
            }
            main {
            background-color: #E9EDEE;
@@ -123,7 +123,7 @@ function generateHTML(data, color) {
            padding-top: 30px;
            }
            h1, h2, h3, h4, h5, h6 {
-           font-family: 'BioRhyme', serif;
+           font-family: serif;
            margin: 0;
            }
            h1 {
@@ -258,4 +258,63 @@ function generateHTML(data, color) {
         </div>
       </div>
     </div>
-   
+    
+    <div class="main">
+        <div class="container">
+        <h2 style="text-align: center;">
+            ${data.bio}
+        </h2>
+            <div class="row">
+                <div class="col">
+                <div class="card">
+                    <h2>
+                    Repositories
+                    </h2>
+                    <h3>${data.num_repo}</h3>
+                </div>
+                <div class="card">
+                    <h2>
+                    Followers
+                    </h2>
+                    <h3>${data.num_followers}</h3>
+                </div>
+                </div>
+                <div class="col">
+                <div class="card">
+                    <h2>
+                    Public Stars
+                    </h2>
+                    <h3>${data.num_stars}</h3>
+                </div>
+                <div class="card">
+                    <h2>
+                    Following
+                    </h2>
+                    <h3>${data.num_followers}</h3>
+                </div>
+                </div>
+            </div>
+         </div>   
+    </div>
+
+    <div class="wrapper" style="height: 17.5%;"></div>
+  </body>
+</html>`;
+
+  const filename = "index.html";
+
+  fs.writeFile(filename, html, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("HTML file generated");
+      pdf.create(html, null).toFile("./githubprofile.pdf", function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("PDF file generated");
+        }
+      });
+    }
+  });
+}
